@@ -12,6 +12,8 @@ jobs:
   build:
     name: "Build and Release"
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
