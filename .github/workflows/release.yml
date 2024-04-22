@@ -22,7 +22,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Set up Flutter
+      - name: "Set up Flutter"
         uses: subosito/flutter-action@v2
         with:
           channel: any
@@ -31,10 +31,16 @@ jobs:
       - run: flutter pub get
       - run: dart run build_runner build
       - run: flutter build apk --release
-      - name: Upload APK
+      - name: "Upload APK"
         uses: actions/upload-artifact@v2
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
           tag: v1.0.${{ github.run_number}}
           token: ${{ secrets.TOKEN }}
+      - name: "Upload and Release APK"
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: app-release
+          token: ${{ secrets.TOKEN }}
+          tag: v1.0.${{ github.run_number}}
