@@ -31,16 +31,9 @@ jobs:
       - run: flutter pub get
       - run: dart run build_runner build
       - run: flutter build apk --release
-      - name: "Upload APK"
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
-          tag: v1.0.${{ github.run_number}}
-          token: ${{ secrets.TOKEN }}
       - name: "Upload and Release APK"
         uses: ncipollo/release-action@v1
         with:
-          artifacts: app-release
+          artifacts: build/app/outputs/flutter-apk/app-release.apk
           token: ${{ secrets.TOKEN }}
           tag: v1.0.${{ github.run_number}}
